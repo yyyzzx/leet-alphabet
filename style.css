@@ -1,0 +1,69 @@
+body {
+    background-color: #cee2d6;
+}
+
+#container {
+  display: flex;
+  position: absolute;
+/* These three properties below center the container */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Parent container for both letters H and I */
+.letter {
+/* Set to flex with wrapping so the cell pieces sit side by side and wrap */
+  display: flex;
+  flex-wrap: wrap;
+/* The below margin controls spacing between each letter */
+  margin-right: 30px;
+}
+
+/* Each "pixel" */
+.cell {
+    width: calc(40vw/39);
+    height: calc(40vw/39);
+    background-color: white;
+    opacity: 0;
+}
+
+.fill {
+    background-color: #5d826d;
+    opacity: 1;
+    box-shadow: 1vw 1vw white;
+}
+
+#container .fill:hover {
+    border: white dotted 1px;
+    bottom: 5px;
+    right: 5px;
+    position: relative;
+    box-shadow: none;
+}
+
+@media only screen and (max-width: 700px) {
+    #container {
+        width: 500px;
+    }
+
+    .cell {
+        width: calc(500px/39);
+        height: calc(500px/39);
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #container {
+        width: 300px;
+    }
+
+    .cell {
+        width: calc(300px/39);
+        height: calc(300px/39);
+    }
+}
