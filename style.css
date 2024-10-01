@@ -1,18 +1,31 @@
+@font-face {
+    font-family: Supply-Regular;
+    src: url(PPSupplySans-Regular.otf);
+}
+
+@font-face {
+    font-family: Supply-Light;
+    src: url(PPSupplySans-Ultralight.otf);
+}
+
 body {
-    background-color: #cee2d6;
+    background-color: #FFC300;
 }
 
 #container {
   display: flex;
   position: absolute;
+  color: aquamarine;
 /* These three properties below center the container */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40vw;
+  width: 35vw;
+  height: 45vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
 }
 
 /* Parent container for both letters H and I */
@@ -26,27 +39,48 @@ body {
 
 /* Each "pixel" */
 .cell {
-    width: calc(40vw/39);
-    height: calc(40vw/39);
+    width: calc(35vw/7);
+    height: calc(45vw/9);
     background-color: white;
     opacity: 0;
+
+
 }
 
 .fill {
-    background-color: #5d826d;
+    background-color: #FFC300;
+    /* background-color: black; */
     opacity: 1;
-    box-shadow: 1vw 1vw white;
+
+    /* box-shadow: 1vw 1vw white; */
+    /* display: flex;
+    align-items: center; */
+}
+
+.fill{
+    font-family: "Supply-Light";
+    font-size: 18pt;
+    color: black;
+    display: flex;
+    height: calc(45vw/9);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s
 }
 
 #container .fill:hover {
-    border: white dotted 1px;
+    /* border: #FFC300 dotted 3px; */
+    /* border-radius: 20px;
+    background-color: black;
+    color: #FFC300;
     bottom: 5px;
     right: 5px;
-    position: relative;
-    box-shadow: none;
+    position: relative; */
+    /* box-shadow: 5px 5px darorange; */
 }
 
-@media only screen and (max-width: 700px) {
+/* @media only screen and (max-width: 700px) {
     #container {
         width: 500px;
     }
@@ -66,4 +100,4 @@ body {
         width: calc(300px/39);
         height: calc(300px/39);
     }
-}
+} */
