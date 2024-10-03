@@ -8,77 +8,71 @@
     src: url(PPSupplySans-Ultralight.otf);
 }
 
+:root {
+    --width: calc()
+}
+
 body {
-    background-color: #FFC300;
+    background-color: black;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
-#container {
-  display: flex;
-  position: absolute;
-  color: aquamarine;
-/* These three properties below center the container */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35vw;
-  height: 45vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-}
-
-/* Parent container for both letters H and I */
-.letter {
-/* Set to flex with wrapping so the cell pieces sit side by side and wrap */
-  display: flex;
-  flex-wrap: wrap;
-/* The below margin controls spacing between each letter */
-  margin-right: 30px;
-}
-
-/* Each "pixel" */
-.cell {
-    width: calc(35vw/7);
-    height: calc(45vw/9);
-    background-color: white;
-    opacity: 0;
-
-
-}
-
-.fill {
-    background-color: #FFC300;
-    /* background-color: black; */
-    opacity: 1;
-
-    /* box-shadow: 1vw 1vw white; */
-    /* display: flex;
-    align-items: center; */
-}
-
-.fill{
-    font-family: "Supply-Light";
-    font-size: 18pt;
-    color: black;
+.outer-container {
+    width: 96vw;
+    margin: 2vw;
+    /* background-color: red; */
     display: flex;
-    height: calc(45vw/9);
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+/* #e-container .e-fill {
+    background-color: black;
+} */
+
+.fill, 
+.a-fill, .b-fill, .c-fill, 
+.d-fill, .e-fill, .f-fill,
+.g-fill, .h-fill, .i-fill,
+.j-fill, .k-fill, .l-fill,
+.m-fill, .n-fill, .o-fill {
+    display: flex;
+    /* margin-right: 2vw; */
+    color: #FFC300;
+    background-color: black;
+    width: 10vw;
+    height: 10vw;
+    display: flex;
+    opacity: 1;
+    font-family: "Supply-Light";
+    font-size: 7vw;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    transition: 0.1s
 }
 
-#container .fill:hover {
-    /* border: #FFC300 dotted 3px; */
-    /* border-radius: 20px;
-    background-color: black;
-    color: #FFC300;
-    bottom: 5px;
-    right: 5px;
-    position: relative; */
-    /* box-shadow: 5px 5px darorange; */
+#a-container:hover,
+#b-container:hover {
+    /* background-color: black;
+    transition: 0.5s;
+    padding: 1vw; */
 }
+
+.a-fill:hover, .b-fill:hover, .c-fill:hover,
+.d-fill:hover, .e-fill:hover, .f-fill:hover {
+    /* border: black dotted 0.2px; */
+    /* background-color: black;
+    transition: 0.1s; */
+    /* scale: 10; */
+    /* color: #FFC300; */
+    /* bottom: 5px;
+    right: 5px;
+    position: relative;
+    box-shadow: 5px 5px darorange; */
+}
+
+
 
 /* @media only screen and (max-width: 700px) {
     #container {
