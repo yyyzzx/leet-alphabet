@@ -1,150 +1,90 @@
-let intervalIdA;
-let intervalIdB;
+let intervalIds = {}; // Store interval IDs for individual boxes
 
-let intervalIdE;
-
-
-let intervalIdN;
-let intervalIdO;
-
-function updateTimeA() {
-    // For A
-    let aboxes = document.querySelectorAll(".a-fill");
-    let atext = ["4", "@", "/\\", "/-\\"];
-    
-    for (let box of aboxes) {
-        let randomText = Math.floor(Math.random() * atext.length);
-        box.innerHTML = atext[randomText];
-
-        box.addEventListener("mouseover", function() {
-            aboxes.forEach(b => {
-                b.innerHTML = "A";
-                b.style.fontFamily = "Supply-Regular";
-                b.style.color = "black";
-                b.style.backgroundColor = "#FFC300";
-                b.style.transition = "1s";
-            });
-
-            clearInterval(intervalIdA);
-
-            setTimeout(() => {
-                aboxes.forEach(b => {
-                    b.style.fontFamily = ""; // Reset to default
-                    b.style.color = "";       // Reset to default
-                    b.style.backgroundColor = ""; // Reset to default
-                });
-                intervalIdA = setInterval(updateTimeA, 1000);
-            }, 4000);
-        });
+// Function to update content of a specific box
+function updateTimeForBox(box, textArray) {
+    if (!box.hovered) { // Only update if the specific box is not hovered
+        let randomText = Math.floor(Math.random() * textArray.length);
+        box.innerHTML = textArray[randomText];
     }
 }
 
-function updateTimeB() {
-    // For B
-    let bboxes = document.querySelectorAll(".b-fill");
-    let btext = ["8", "|3", "6", "13", "]3"];
-    
-    for (let box of bboxes) {
-        let randomText = Math.floor(Math.random() * btext.length);
-        box.innerHTML = btext[randomText];
+// Function to add hover effect for each individual box
+function addHoverEffectToBox(box, textArray, letter) {
+    box.addEventListener("mouseover", function() {
+        box.hovered = true; // Mark the box as hovered
+        box.innerHTML = letter; // Set the content to the letter
+        box.style.fontFamily = "Supply-Regular";
+        box.style.color = "black";
+        box.style.backgroundColor = "#FFC300";
+        box.style.transition = "1s";
 
-        box.addEventListener("mouseover", function() {
-            bboxes.forEach(b => {
-                b.innerHTML = "B";
-                b.style.fontFamily = "Supply-Regular";
-                b.style.color = "black";
-                b.style.backgroundColor = "#FFC300";
-                b.style.transition = "1s";
-            });
+        clearInterval(intervalIds[box]); // Stop the interval for this specific box
 
-            clearInterval(intervalIdB); 
+        // Reset after 5 seconds
+        setTimeout(() => {
+            box.hovered = false; // Reset hover state for this specific box
+            
+            // Reset styles after hover ends
+            box.style.fontFamily = "";
+            box.style.color = "";
+            box.style.backgroundColor = "";
 
-            setTimeout(() => {
-                bboxes.forEach(b => {
-                    b.style.fontFamily = ""; // Reset to default
-                    b.style.color = "";       // Reset to default
-                    b.style.backgroundColor = ""; // Reset to default
-                });
-                intervalIdB = setInterval(updateTimeB, 1000);
-            }, 4000);
-        });
-    }
+            // After 5 seconds, update to a random text immediately
+            updateTimeForBox(box, textArray);
+            
+            // Start updating again after timeout
+            intervalIds[box] = setInterval(() => updateTimeForBox(box, textArray), 1000);
+        }, 5000);
+    });
 }
 
-function updateTimeE() {
-    // For E
-    let eboxes = document.querySelectorAll(".e-fill");
-    let etext = ["3", "€", "£"];
+// Function to initialize intervals and hover effects for each box of a given letter
+function initializeBoxesForLetter(letter, textArray) {
+    let boxes = document.querySelectorAll(`.${letter.toLowerCase()}-fill`);
     
-    for (let box of eboxes) {
-        let randomText = Math.floor(Math.random() * etext.length);
-        box.innerHTML = etext[randomText];
+    boxes.forEach((box) => {
+        // Immediately generate random content for each box on page load
+        updateTimeForBox(box, textArray);
 
-        box.addEventListener("mouseover", function() {
-            eboxes.forEach(b => {
-                b.innerHTML = "E";
-                b.style.fontFamily = "Supply-Regular";
-                b.style.color = "black";
-                b.style.backgroundColor = "#FFC300";
-                b.style.transition = "1s";
-            });
-
-            clearInterval(intervalIdE); 
-        });
-    }
+        // Start updating each box individually
+        intervalIds[box] = setInterval(() => updateTimeForBox(box, textArray), 1000);
+        
+        // Add hover effect for each individual box
+        addHoverEffectToBox(box, textArray, letter);
+    });
 }
 
-function updateTimeN() {
-    // For N
-    let nboxes = document.querySelectorAll(".n-fill");
-    let ntext = ["|\\|", "/\\/", "/V", "[\\]"];
-    
-    for (let box of nboxes) {
-        let randomText = Math.floor(Math.random() * ntext.length);
-        box.innerHTML = ntext[randomText];
+// Initialize for all letters in the alphabet
+const alphabet = {
+    A: ["4", "@", "/\\", "/-\\"],
+    B: ["8", "|3", "6", "13", "]3"],
+    C: ["<", "(", "{", "[", "€"],
+    D: [")", "|)", "|}", "cl", "|>"],
+    E: ["3", "£", "€", "ë"],
+    F: ["|=", "ph", "||"],
+    G: ["9", "g", "6"],
+    H: ["#","|-|","|-", "]-["],
+    I: ["1", "|", "!", "[]"],
+    J: ["_|", "_/", "_|"],
+    K: ["|<", "|{"],
+    L: ["|_", "1"],
+    M: ["|\\/|", "|\\|\\|", "/\\/\\", "^^"],
+    N: ["|\\|", "/\\/"],
+    O: ["0", "()", "[]"],
+    P: ["|*", "|D", "9"],
+    Q: ["(_,)", "0,"],
+    R: ["|2", "12"],
+    S: ["5", "$"],
+    T: ["7", "+", "†"],
+    U: ["|_|", "(_)"],
+    V: ["\\/"],
+    W: ["\\/\\/"],
+    X: ["%"],
+    Y: ["¥", "'/"],
+    Z: ["2", "5"],
+};
 
-        box.addEventListener("mouseover", function() {
-            nboxes.forEach(b => {
-                b.innerHTML = "N";
-                b.style.fontFamily = "Supply-Regular";
-                b.style.color = "black";
-                b.style.backgroundColor = "#FFC300";
-            });
-
-            clearInterval(intervalIdN); 
-        });
-    }
-}
-
-function updateTimeO() {
-    // For O
-    let oboxes = document.querySelectorAll(".o-fill");
-    let otext = ["0", "()", "[]"];
-    
-    for (let box of oboxes) {
-        let randomText = Math.floor(Math.random() * otext.length);
-        box.innerHTML = otext[randomText];
-
-        box.addEventListener("mouseover", function() {
-            oboxes.forEach(b => {
-                b.innerHTML = "O"; 
-                b.style.fontFamily = "Supply-Regular";
-                b.style.color = "black";
-                b.style.backgroundColor = "#FFC300";
-                b.style.transition = "1s";
-            });
-
-            clearInterval(intervalIdO); 
-        });
-    }
-}
-
-intervalIdA = setInterval(updateTimeA, 1000);
-intervalIdB = setInterval(updateTimeB, 1000);
-
-intervalIdE = setInterval(updateTimeE, 1000);
-
-
-intervalIdN = setInterval(updateTimeN, 1000);
-intervalIdO = setInterval(updateTimeO, 1000);
-
+// Iterate over each letter in the alphabet and initialize its boxes
+Object.keys(alphabet).forEach(letter => {
+    initializeBoxesForLetter(letter, alphabet[letter]);
+});
