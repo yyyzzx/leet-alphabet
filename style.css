@@ -12,6 +12,10 @@
     --width: calc()
 }
 
+html {
+    font-size: 26pt;
+}
+
 body {
     background-color: black;
     width: 100vw;
@@ -25,6 +29,8 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2vw 0;
 }
 
 /* #e-container .e-fill {
@@ -36,20 +42,28 @@ body {
 .d-fill, .e-fill, .f-fill,
 .g-fill, .h-fill, .i-fill,
 .j-fill, .k-fill, .l-fill,
-.m-fill, .n-fill, .o-fill {
+.m-fill, .n-fill, .o-fill,
+.p-fill, .q-fill, .r-fill,
+.s-fill, .t-fill, .u-fill,
+.w-fill, .x-fill, .y-fill, .z-fill {
     display: flex;
     /* margin-right: 2vw; */
     color: #FFC300;
     background-color: black;
-    width: 10vw;
-    height: 10vw;
+    width: 1.8rem;
+    height: 1.8rem;
     display: flex;
     opacity: 1;
     font-family: "Supply-Light";
-    font-size: 7vw;
+    font-size: 1rem;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+.line-break {
+    height: 1rem;
+    width: 96vw;
 }
 
 #a-container:hover,
@@ -61,12 +75,10 @@ body {
 
 .a-fill:hover, .b-fill:hover, .c-fill:hover,
 .d-fill:hover, .e-fill:hover, .f-fill:hover {
-    /* border: black dotted 0.2px; */
-    /* background-color: black;
-    transition: 0.1s; */
-    /* scale: 10; */
-    /* color: #FFC300; */
-    /* bottom: 5px;
+    /* border: black dotted 0.2px; */ 
+    /* transition: 0.1s; 
+    color: #FFC300; 
+    bottom: 5px; 
     right: 5px;
     position: relative;
     box-shadow: 5px 5px darorange; */
