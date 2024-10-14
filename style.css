@@ -23,13 +23,19 @@ body {
 }
 
 .outer-container {
-    width: 96vw;
     margin: 2vw;
-    /* background-color: red; */
+}
+
+.outer-container, #intro {
+    width: 96vw;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+
+}
+
+#intro {
     gap: 2vw 0;
 }
 
@@ -59,11 +65,65 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    border: black solid 0.01rem;
+}
+
+.heading-one {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.heading-one .l-fill, .heading-one .e-fill,
+.heading-one .t-fill, .heading-one .s-fill,
+.heading-one .p-fill, .heading-one .a-fill,
+.heading-one .k-fill{
+    width: 5.4rem;
+    height: 5.4rem;
+    font-size: 3rem;
+    margin-bottom: 1vw;
+}
+
+.br {
+    width: calc(96vw - (5.4rem * 4));
+}
+
+.heading-one .line-break {
+    margin-bottom: 1vw;
+    /* background-color: aqua; */
 }
 
 .line-break {
     height: 1rem;
     width: 96vw;
+}
+
+input[type=button] {
+    color: #FFC300;
+    background-color: black;
+    width: 1.8rem;
+    height: 1.8rem;
+    display: flex;
+    opacity: 1;
+    font-family: "Supply-Light";
+    font-size: 1rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: black solid 0.01rem;
+    transition: 2s;
+}
+
+input[type=button]:hover{
+    background-color: #FFC300;
+    color: black;
+    transition: 2s;
+    position: relative;
+    top: -12px;
+    left: -12px;
+    box-shadow: 0.2rem 0.2rem darkorange;
+    cursor: pointer;
+    font-family: "Supply-Regular";
 }
 
 #a-container:hover,

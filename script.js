@@ -20,7 +20,9 @@ function addHoverEffectToBox(box, textArray, letter) {
         box.style.position = "relative";
         box.style.top = "-12px";
         box.style.left = "-12px";
-        box.style.border = "black solid 0.03rem";
+        // box.style.border = "black solid 0.03rem";
+        box.style.boxShadow = "0.2rem 0.2rem darkorange"
+
 
         clearInterval(intervalIds[box]); // Stop the interval for this specific box
 
@@ -34,7 +36,8 @@ function addHoverEffectToBox(box, textArray, letter) {
             box.style.backgroundColor = "";
             box.style.top = "";
             box.style.left = "";
-            box.style.border = "";
+            // box.style.border = "";
+            box.style.boxShadow = ""
 
             // After 5 seconds, update to a random text immediately
             updateTimeForBox(box, textArray);
@@ -95,3 +98,27 @@ const alphabet = {
 Object.keys(alphabet).forEach(letter => {
     initializeBoxesForLetter(letter, alphabet[letter]);
 });
+
+function showChapOne() {
+    let intro = document.getElementById("intro");
+    let one = document.getElementById("chapOne");  // Ensure the correct ID is used
+
+    // If it's an input element, change the value
+    one.value = "↓";  // Update the button text to a down arrow
+    
+    // Set initial styles for intro
+    intro.style.transition = "height 10s, opacity 10s";  // Transition both height and opacity
+    intro.style.overflow = "hidden";  // Prevent content overflow during height transition
+
+    // Trigger the transition
+    intro.style.height = "0";        // Gradually shrink height to 0
+    intro.style.opacity = "0";       // Gradually fade out
+    
+    // Hide the element completely after the transition
+    setTimeout(function() {
+        intro.style.display = "none";
+    }, 10000);  // 10s, matching the transition duration
+}
+
+
+
