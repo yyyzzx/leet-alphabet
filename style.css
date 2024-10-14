@@ -103,18 +103,17 @@ input[type=button] {
     background-color: black;
     width: 1.8rem;
     height: 1.8rem;
-    display: flex;
     opacity: 1;
     font-family: "Supply-Light";
     font-size: 1rem;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    text-align: center; /* Center the text */
     border: black solid 0.01rem;
     transition: 2s;
+    line-height: 1.8rem; /* Match the line-height with the height for vertical centering */
+    padding: 0; /* Remove default padding if any */
 }
 
-input[type=button]:hover{
+input[type=button]:hover {
     background-color: #FFC300;
     color: black;
     transition: 2s;
@@ -125,6 +124,7 @@ input[type=button]:hover{
     cursor: pointer;
     font-family: "Supply-Regular";
 }
+
 
 #a-container:hover,
 #b-container:hover {
