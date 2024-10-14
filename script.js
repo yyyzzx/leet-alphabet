@@ -1,13 +1,12 @@
-let allBoxes = [];  // Store references to all boxes
-let isUpdating = true; // Control variable for global updating
+let allBoxes = []; 
+let isUpdating = true; 
 
-// Function to update all boxes at the same time
 function updateAllBoxes(textArrays) {
-    if (!isUpdating) return; // If updating is paused, exit the function
+    if (!isUpdating) return; 
 
     allBoxes.forEach(box => {
-        if (!box.hovered) {  // Only update boxes that are not currently hovered
-            let letter = box.dataset.letter;  // Retrieve the letter from data attribute
+        if (!box.hovered) {  
+            let letter = box.dataset.letter; 
             let textArray = textArrays[letter];
             let randomText = Math.floor(Math.random() * textArray.length);
             box.innerHTML = textArray[randomText];
@@ -15,12 +14,11 @@ function updateAllBoxes(textArrays) {
     });
 }
 
-// Function to add hover effect to a specific box
 function addHoverEffectToBox(box, textArray, letter) {
     box.addEventListener("mouseover", function() {
-        isUpdating = false;  // Pause global updating
-        box.hovered = true;   // Mark the box as hovered
-        box.innerHTML = letter;  // Set the content to the letter
+        isUpdating = false;
+        box.hovered = true;   
+        box.innerHTML = letter; 
         box.style.fontFamily = "Supply-Regular";
         box.style.color = "black";
         box.style.backgroundColor = "#FFC300";
@@ -30,11 +28,9 @@ function addHoverEffectToBox(box, textArray, letter) {
         box.style.left = "-12px";
         box.style.boxShadow = "0.2rem 0.2rem darkorange";
 
-        // Reset after 5 seconds
         setTimeout(() => {
-            box.hovered = false;  // Reset hover state for this specific box
+            box.hovered = false; 
 
-            // Reset styles after hover ends
             box.style.fontFamily = "";
             box.style.color = "";
             box.style.backgroundColor = "";
@@ -42,36 +38,28 @@ function addHoverEffectToBox(box, textArray, letter) {
             box.style.left = "";
             box.style.boxShadow = "";
 
-            // After 5 seconds, update to a random text immediately
             let randomText = Math.floor(Math.random() * textArray.length);
             box.innerHTML = textArray[randomText];
 
-            // Resume global updating
             isUpdating = true;
         }, 5000);
     });
 }
 
-// Function to initialize hover effects and add each box to the global list
 function initializeBoxesForLetter(letter, textArray) {
     let boxes = document.querySelectorAll(`.${letter.toLowerCase()}-fill`);
     boxes.forEach((box) => {
-        // Store the letter for reference during updates
         box.dataset.letter = letter;
 
-        // Immediately generate random content for each box on page load
         let randomText = Math.floor(Math.random() * textArray.length);
         box.innerHTML = textArray[randomText];
 
-        // Add hover effect for each individual box
         addHoverEffectToBox(box, textArray, letter);
 
-        // Add the box to the global list
         allBoxes.push(box);
     });
 }
 
-// Initialize for all letters in the alphabet
 const alphabet = {
     A: ["4", "@", "/\\", "/-\\"],
     B: ["8", "|3", "6", "13", "[3"],
@@ -85,7 +73,7 @@ const alphabet = {
     J: ["_|", "_/", "_|"],
     K: ["|<", "|{"],
     L: ["|_", "1_"],
-    M: ["|\\/|", "|\\|\\|", "/\\/\\", "^^", "|v|"],
+    M: ["|\\/|", "|\\|\\", "/\\/\\", "^^", "|v|"],
     N: ["|\\|", "/\\/", "[\\]", "/V", "^/"],
     O: ["0", "()", "[]"],
     P: ["|*", "|D", "|''", "¶"],
@@ -101,34 +89,98 @@ const alphabet = {
     Z: ["2", "7_", "~/_"],
 };
 
-// Iterate over each letter in the alphabet and initialize its boxes
 Object.keys(alphabet).forEach(letter => {
     initializeBoxesForLetter(letter, alphabet[letter]);
 });
 
-// Start a single interval to update all boxes at the same time
 setInterval(() => updateAllBoxes(alphabet), 1000);
 
 
 function showChapOne() {
     let intro = document.getElementById("intro");
-    let one = document.getElementById("chapOne");  // Ensure the correct ID is used
+    let one = document.getElementById("chapOne");  
+    let two = document.getElementById("chapTwo");
+    let three = document.getElementById("chapThree");
+    let origin = document.getElementById("origin");
+    let forms = document.getElementById("forms"); 
+    let alphabet = document.getElementById("alphabet");
 
-    // If it's an input element, change the value
-    one.value = "↓";  // Update the button text to a down arrow
+    origin.style.display = "flex";
+    forms.style.display = "none";
+    one.value = "↓";  
+    two.value = "→";
+    three.value = "→";
     
-    // Set initial styles for intro
-    intro.style.transition = "height 10s, opacity 10s";  // Transition both height and opacity
-    intro.style.overflow = "hidden";  // Prevent content overflow during height transition
+    intro.style.transition = "height 2s, opacity 2s";  
+    intro.style.overflow = "hidden"; 
+    intro.style.height = intro.offsetHeight + "px";  
+    
+    setTimeout(function() {
+        intro.style.height = "0";  
+        intro.style.opacity = "0"; 
+    }, 0); 
+    
+    setTimeout(function() {
+        intro.style.display = "none"; 
+    }, 2000);  
+}
 
-    // Trigger the transition
-    intro.style.height = "0";        // Gradually shrink height to 0
-    intro.style.opacity = "0";       // Gradually fade out
+
+function showChapTwo() {
+    let intro = document.getElementById("intro");
+    let one = document.getElementById("chapOne");  
+    let two = document.getElementById("chapTwo");
+    let three = document.getElementById("chapThree");
+    let origin = document.getElementById("origin");
+    let forms = document.getElementById("forms"); 
+    let alphabet = document.getElementById("alphabet");
+
+    forms.style.display = "flex";
+    origin.style.display = "none";
+    alphabet.style.display = "none";
+    two.value = "↓";  
+    one.value = "→";
+    three.value = "→";
     
-    // Hide the element completely after the transition
+    intro.style.transition = "height 2s, opacity 2s";  
+    intro.style.overflow = "hidden";  
+
+    intro.style.height = "0";    
+    intro.style.opacity = "0";     
+    
     setTimeout(function() {
         intro.style.display = "none";
-    }, 10000);  // 10s, matching the transition duration
+    }, 2000); 
+}
+
+function showChapThree() {
+    let intro = document.getElementById("intro");
+    let one = document.getElementById("chapOne");  
+    let two = document.getElementById("chapTwo");
+    let three = document.getElementById("chapThree");
+    let origin = document.getElementById("origin");
+    let forms = document.getElementById("forms"); 
+    let alphabet = document.getElementById("alphabet");
+
+    origin.style.display = "none";
+    forms.style.display = "none";
+    alphabet.style.display = "flex";
+    three.value = "↓";  
+    two.value = "→";
+    one.value = "→";
+    
+    intro.style.transition = "height 2s, opacity 2s"; 
+    intro.style.overflow = "hidden"; 
+    intro.style.height = intro.offsetHeight + "px";  
+    
+    setTimeout(function() {
+        intro.style.height = "0"; 
+        intro.style.opacity = "0";   
+    }, 0); 
+    
+    setTimeout(function() {
+        intro.style.display = "none"; 
+    }, 2000);  
 }
 
 
