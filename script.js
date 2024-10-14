@@ -1,18 +1,26 @@
-let intervalIds = {}; // Store interval IDs for individual boxes
+let allBoxes = [];  // Store references to all boxes
+let isUpdating = true; // Control variable for global updating
 
-// Function to update content of a specific box
-function updateTimeForBox(box, textArray) {
-    if (!box.hovered) { // Only update if the specific box is not hovered
-        let randomText = Math.floor(Math.random() * textArray.length);
-        box.innerHTML = textArray[randomText];
-    }
+// Function to update all boxes at the same time
+function updateAllBoxes(textArrays) {
+    if (!isUpdating) return; // If updating is paused, exit the function
+
+    allBoxes.forEach(box => {
+        if (!box.hovered) {  // Only update boxes that are not currently hovered
+            let letter = box.dataset.letter;  // Retrieve the letter from data attribute
+            let textArray = textArrays[letter];
+            let randomText = Math.floor(Math.random() * textArray.length);
+            box.innerHTML = textArray[randomText];
+        }
+    });
 }
 
-// Function to add hover effect for each individual box
+// Function to add hover effect to a specific box
 function addHoverEffectToBox(box, textArray, letter) {
     box.addEventListener("mouseover", function() {
-        box.hovered = true; // Mark the box as hovered
-        box.innerHTML = letter; // Set the content to the letter
+        isUpdating = false;  // Pause global updating
+        box.hovered = true;   // Mark the box as hovered
+        box.innerHTML = letter;  // Set the content to the letter
         box.style.fontFamily = "Supply-Regular";
         box.style.color = "black";
         box.style.backgroundColor = "#FFC300";
@@ -20,47 +28,46 @@ function addHoverEffectToBox(box, textArray, letter) {
         box.style.position = "relative";
         box.style.top = "-12px";
         box.style.left = "-12px";
-        // box.style.border = "black solid 0.03rem";
-        box.style.boxShadow = "0.2rem 0.2rem darkorange"
-
-
-        clearInterval(intervalIds[box]); // Stop the interval for this specific box
+        box.style.boxShadow = "0.2rem 0.2rem darkorange";
 
         // Reset after 5 seconds
         setTimeout(() => {
-            box.hovered = false; // Reset hover state for this specific box
-            
+            box.hovered = false;  // Reset hover state for this specific box
+
             // Reset styles after hover ends
             box.style.fontFamily = "";
             box.style.color = "";
             box.style.backgroundColor = "";
             box.style.top = "";
             box.style.left = "";
-            // box.style.border = "";
-            box.style.boxShadow = ""
+            box.style.boxShadow = "";
 
             // After 5 seconds, update to a random text immediately
-            updateTimeForBox(box, textArray);
-            
-            // Start updating again after timeout
-            intervalIds[box] = setInterval(() => updateTimeForBox(box, textArray), 1000);
+            let randomText = Math.floor(Math.random() * textArray.length);
+            box.innerHTML = textArray[randomText];
+
+            // Resume global updating
+            isUpdating = true;
         }, 5000);
     });
 }
 
-// Function to initialize intervals and hover effects for each box of a given letter
+// Function to initialize hover effects and add each box to the global list
 function initializeBoxesForLetter(letter, textArray) {
     let boxes = document.querySelectorAll(`.${letter.toLowerCase()}-fill`);
-    
     boxes.forEach((box) => {
-        // Immediately generate random content for each box on page load
-        updateTimeForBox(box, textArray);
+        // Store the letter for reference during updates
+        box.dataset.letter = letter;
 
-        // Start updating each box individually
-        intervalIds[box] = setInterval(() => updateTimeForBox(box, textArray), 1000);
-        
+        // Immediately generate random content for each box on page load
+        let randomText = Math.floor(Math.random() * textArray.length);
+        box.innerHTML = textArray[randomText];
+
         // Add hover effect for each individual box
         addHoverEffectToBox(box, textArray, letter);
+
+        // Add the box to the global list
+        allBoxes.push(box);
     });
 }
 
@@ -98,6 +105,10 @@ const alphabet = {
 Object.keys(alphabet).forEach(letter => {
     initializeBoxesForLetter(letter, alphabet[letter]);
 });
+
+// Start a single interval to update all boxes at the same time
+setInterval(() => updateAllBoxes(alphabet), 1000);
+
 
 function showChapOne() {
     let intro = document.getElementById("intro");
